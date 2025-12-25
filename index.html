@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>ShopKart - Online Shopping India | Best Deals on Electronics & Fashion</title>
+    <meta name="description" content="Shop everything you need at ShopKart India. Best deals on Electronics, Fashion, and more with fast delivery.">
+    <meta name="keywords" content="online shopping, shopkart india, buy electronics online, fashion shopping">
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'Poppins', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex items-center justify-between py-4">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-shopping-cart text-3xl text-purple-600"></i>
+                <h1 class="text-2xl font-bold text-purple-600">ShopKart</h1>
+            </div>
+            <div class="flex items-center space-x-6">
+                <div class="relative cursor-pointer">
+                    <i class="fas fa-shopping-bag text-2xl text-gray-600"></i>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5">0</span>
+                </div>
+                <button class="bg-purple-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-purple-700">Login</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <h2 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">India's Favorite <br>Online Shop</h2>
+                <p class="text-lg mb-6 opacity-90">Electronics, Fashion, and Daily Essentials at your doorstep with 24-hour delivery.</p>
+                <button class="bg-white text-purple-600 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-100 transition">Start Shopping</button>
+            </div>
+            <div class="animate-float">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600" alt="Online Shopping Discount Banner" class="rounded-lg shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 container mx-auto px-4">
+        <h3 class="text-3xl font-bold text-center mb-10 text-gray-800">Trending Products</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="bg-white p-5 rounded-2xl shadow-sm card-hover border border-gray-100">
+                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400" alt="Wireless Bluetooth Headphones" class="w-full h-52 object-cover rounded-xl mb-4">
+                <h4 class="text-xl font-semibold text-gray-800">Wireless Headphones</h4>
+                <p class="text-gray-500 text-sm mb-3">Premium Bass & Noise Cancellation</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-2xl font-bold text-purple-600">₹2,999</span>
+                    <button onclick="payNow('Wireless Headphones', 2999)" class="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-green-600 transition font-medium">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl shadow-sm card-hover border border-gray-100">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400" alt="Smart Watch Series 7" class="w-full h-52 object-cover rounded-xl mb-4">
+                <h4 class="text-xl font-semibold text-gray-800">Smart Watch</h4>
+                <p class="text-gray-500 text-sm mb-3">Heart Rate & Fitness Tracker</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-2xl font-bold text-purple-600">₹4,999</span>
+                    <button onclick="payNow('Smart Watch', 4999)" class="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-green-600 transition font-medium">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl shadow-sm card-hover border border-gray-100">
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400" alt="Sports Running Shoes" class="w-full h-52 object-cover rounded-xl mb-4">
+                <h4 class="text-xl font-semibold text-gray-800">Sports Shoes</h4>
+                <p class="text-gray-500 text-sm mb-3">Lightweight & Breathable Material</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-2xl font-bold text-purple-600">₹1,499</span>
+                    <button onclick="payNow('Sports Shoes', 1499)" class="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-green-600 transition font-medium">Buy Now</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12 text-center mt-10">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-purple-400 mb-4">ShopKart</h2>
+            <p class="text-gray-400 mb-6">Made with ❤️ in India for the world.</p>
+            <hr class="border-gray-800 mb-6">
+            <p class="text-sm text-gray-500">&copy; 2025 ShopKart India Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let cartCount = 0;
+
+        function payNow(productName, price) {
+            // Razorpay Key: Agar aapki key nahi hai toh test mode ke liye 'rzp_test_...' use karein
+            const options = {
+                "key": "rzp_test_YOUR_KEY_HERE", 
+                "amount": price * 100, // Amount in paise
+                "currency": "INR",
+                "name": "ShopKart India",
+                "description": "Payment for " + productName,
+                "image": "https://cdn-icons-png.flaticon.com/512/1170/1170576.png",
+                "handler": function (response) {
+                    // Success hone par ye chalega
+                    alert("Payment Successful! ID: " + response.razorpay_payment_id);
+                    cartCount++;
+                    document.getElementById('cart-badge').innerText = cartCount;
+                    showToast(productName + " added to orders!");
+                },
+                "prefill": {
+                    "name": "Customer Name",
+                    "email": "customer@example.com",
+                    "contact": "9999999999"
+                },
+                "theme": { "color": "#764ba2" }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+        }
+
+        function showToast(msg) {
+            const toast = document.createElement('div');
+            toast.className = "fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-full shadow-2xl z-50 animate-bounce";
+            toast.innerText = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+</body>
+  </html>
+  

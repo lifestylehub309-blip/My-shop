@@ -141,3 +141,112 @@
 </body>
   </html>
   
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopKart - All Categories Online Shopping India</title>
+    
+    <meta name="description" content="Shop everything you need at ShopKart India. Best deals on Electronics, Fashion, and more.">
+    <meta name="keywords" content="online shopping india, electronics, fashion, shopkart">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'Poppins', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex items-center justify-between py-4">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-shopping-cart text-3xl text-purple-600"></i>
+                <h1 class="text-2xl font-bold gradient-bg bg-clip-text text-transparent">ShopKart</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="relative">
+                    <i class="fas fa-shopping-bag text-2xl text-gray-600"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-500 text-white text-xs rounded-full px-1.5">0</span>
+                </button>
+                <button class="hidden md:block bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Login</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="gradient-bg text-white py-20 overflow-hidden">
+        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center text-center md:text-left">
+            <div class="space-y-6">
+                <h2 class="text-5xl font-bold leading-tight">Shop Everything You Need</h2>
+                <p class="text-xl opacity-90">Fast delivery across India with secure payments.</p>
+                <button class="bg-white text-purple-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100">Start Shopping</button>
+            </div>
+            <div class="animate-float">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500" alt="Shopping" class="rounded-lg shadow-2xl mx-auto">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 container mx-auto px-4">
+        <h3 class="text-3xl font-bold text-center mb-12">Featured Products</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 card-hover text-center">
+                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300" class="rounded-lg mb-4 mx-auto h-48 object-cover w-full">
+                <h4 class="text-xl font-bold mb-2">Wireless Headphones</h4>
+                <p class="text-2xl font-bold text-purple-600 mb-4">₹2,999</p>
+                <button onclick="payNow('Headphones', 2999)" class="w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-green-600 transition">Buy Now</button>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 card-hover text-center">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300" class="rounded-lg mb-4 mx-auto h-48 object-cover w-full">
+                <h4 class="text-xl font-bold mb-2">Smart Watch</h4>
+                <p class="text-2xl font-bold text-purple-600 mb-4">₹8,999</p>
+                <button onclick="payNow('Smart Watch', 8999)" class="w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-green-600 transition">Buy Now</button>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 card-hover text-center">
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300" class="rounded-lg mb-4 mx-auto h-48 object-cover w-full">
+                <h4 class="text-xl font-bold mb-2">Running Shoes</h4>
+                <p class="text-2xl font-bold text-purple-600 mb-4">₹3,499</p>
+                <button onclick="payNow('Running Shoes', 3499)" class="w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-green-600 transition">Buy Now</button>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/919837641337?text=Hello!%20Mujhe%20ShopKart%20se%20kuch%20puchna%20hai." 
+       target="_blank" 
+       class="fixed bottom-10 right-10 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-50">
+        <i class="fab fa-whatsapp text-4xl"></i>
+    </a>
+
+    <footer class="bg-gray-900 text-white py-12 text-center mt-10">
+        <p>&copy; 2025 ShopKart India. Contact: +91 9837641337</p>
+    </footer>
+
+    <script>
+        let count = 0;
+        function payNow(name, price) {
+            const options = {
+                "key": "rzp_test_YOUR_KEY", // Yahan apni Razorpay Dashboard wali Key daalein
+                "amount": price * 100,
+                "currency": "INR",
+                "name": "ShopKart",
+                "description": "Buying " + name,
+                "handler": function (response){
+                    alert("Payment Success! ID: " + response.razorpay_payment_id);
+                    count++;
+                    document.getElementById('cart-count').innerText = count;
+                },
+                "theme": { "color": "#764ba2" }
+            };
+            const rzp = new Razorpay(options);
+            rzp.open();
+        }
+    </script>
+</body>
+</html>

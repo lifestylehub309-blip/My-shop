@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopKart Pro | Advanced E-Commerce India</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        * { font-family: 'Poppins', sans-serif; transition: 0.3s; }
+        .gradient-bg { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+        .glass-morphism { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="sticky top-0 z-50 glass-morphism border-b shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-shopping-bag text-indigo-600 text-3xl"></i>
+                <span class="text-2xl font-bold tracking-tight text-indigo-900">ShopKart</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <button onclick="showWishlist()" class="relative">
+                    <i class="far fa-heart text-xl"></i>
+                    <span id="wish-count" class="absolute -top-2 -right-2 bg-rose-500 text-white text-[10px] px-1.5 rounded-full">0</span>
+                </button>
+                <button class="relative">
+                    <i class="fas fa-cart-shopping text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-indigo-600 text-white text-[10px] px-1.5 rounded-full">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg py-20 text-white text-center px-4">
+        <h2 class="text-4xl md:text-6xl font-bold mb-6">Experience Instant Shopping</h2>
+        <p class="text-lg opacity-90 mb-8 max-w-2xl mx-auto">Premium electronics and fashion delivered across India within 24 hours.</p>
+        <button class="bg-white text-indigo-600 px-8 py-3 rounded-full font-bold shadow-xl hover:scale-105">Shop Now</button>
+    </section>
+
+    <div class="container mx-auto px-4 py-8 flex flex-wrap gap-4 justify-center">
+        <button onclick="filter('all')" class="bg-indigo-100 text-indigo-700 px-6 py-2 rounded-full font-medium">All Products</button>
+        <button onclick="filter('electronics')" class="bg-white border px-6 py-2 rounded-full font-medium">Electronics</button>
+        <button onclick="filter('fashion')" class="bg-white border px-6 py-2 rounded-full font-medium">Fashion</button>
+    </div>
+
+    <main class="container mx-auto px-4 pb-20">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 group hover:shadow-2xl transition-all p-4">
+                <div class="relative mb-4">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500" class="w-full h-64 object-cover rounded-2xl group-hover:scale-105 transition">
+                    <button onclick="addWish()" class="absolute top-4 right-4 bg-white/80 p-3 rounded-full text-rose-500"><i class="fas fa-heart"></i></button>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Pro Wireless ANC Headphones</h4>
+                <p class="text-indigo-600 text-2xl font-bold mb-6">₹2,999 <span class="text-slate-400 text-sm line-through ml-2">₹4,999</span></p>
+                <div class="flex gap-2">
+                    <button onclick="quickView('Headphones')" class="flex-1 bg-slate-100 py-3 rounded-xl font-semibold">Details</button>
+                    <button onclick="instantCheckout('Headphones', 2999)" class="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-slate-900">Buy Now</button>
+                </div>
+            </div>
+            </div>
+    </main>
+
+    <div id="admin-modal" class="hidden fixed inset-0 z-[100] bg-slate-900 text-white p-6 md:p-12 overflow-y-auto">
+        <div class="flex justify-between items-center mb-10 border-b border-slate-700 pb-4">
+            <h2 class="text-3xl font-bold">Admin Insights Dashboard</h2>
+            <button onclick="closeAdmin()" class="bg-rose-500 px-6 py-2 rounded-xl">Exit</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="bg-slate-800 p-6 rounded-3xl border border-slate-700">Total Sales: <span class="text-emerald-400 block text-2xl font-bold mt-2">₹1,24,500</span></div>
+            <div class="bg-slate-800 p-6 rounded-3xl border border-slate-700">Active Orders: <span id="admin-orders" class="text-indigo-400 block text-2xl font-bold mt-2">0</span></div>
+            <div class="bg-slate-800 p-6 rounded-3xl border border-slate-700">Conversion Rate: <span class="text-amber-400 block text-2xl font-bold mt-2">4.8%</span></div>
+        </div>
+        <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700">
+            <h3 class="text-xl font-bold mb-6">Live Sales Feed</h3>
+            <div id="sales-log" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-6 right-6 flex flex-col gap-4">
+        <button onclick="window.open('https://wa.me/919837641337')" class="bg-emerald-500 text-white p-4 rounded-full shadow-2xl hover:scale-110"><i class="fab fa-whatsapp text-3xl"></i></button>
+        <button onclick="openAdmin()" class="bg-slate-800 text-white p-4 rounded-full shadow-2xl opacity-20 hover:opacity-100"><i class="fas fa-shield-halved text-2xl"></i></button>
+    </div>
+
+    <script>
+        let carts = 0, wishes = 0, revenue = 0;
+        const ADMIN_PASS = "123"; // Password for dashboard
+
+        // Smooth Checkout Logic
+        function instantCheckout(product, amount) {
+            const options = {
+                "key": "rzp_test_YOUR_KEY", 
+                "amount": amount * 100,
+                "name": "ShopKart Pro",
+                "handler": function(res) {
+                    alert("Order Placed Successfully!");
+                    carts++;
+                    document.getElementById('cart-count').innerText = carts;
+                    logToAdmin(res.razorpay_payment_id, product, amount);
+                }
+            };
+            new Razorpay(options).open();
+        }
+
+        function logToAdmin(id, name, amt) {
+            const log = document.getElementById('sales-log');
+            log.innerHTML = `<div class="bg-slate-900/50 p-4 rounded-xl flex justify-between">
+                <span>#${id.substring(0,8)} - ${name}</span>
+                <span class="text-emerald-400 font-bold">₹${amt}</span>
+            </div>` + log.innerHTML;
+            document.getElementById('admin-orders').innerText = carts;
+        }
+
+        // Dashboard Security
+        function openAdmin() {
+            if(prompt("Enter Admin PIN:") === ADMIN_PASS) {
+                document.getElementById('admin-modal').classList.remove('hidden');
+            } else {
+                alert("Access Denied!");
+            }
+        }
+        function closeAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
+        function addWish() { wishes++; document.getElementById('wish-count').innerText = wishes; }
+        function quickView(name) { alert(`Quick View: ${name}\n- Top Quality\n- Replacement Guarantee\n- Fast Shipping`); }
+    </script>
+</body>
+</html>
